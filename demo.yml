@@ -1,0 +1,14 @@
+---
+- hosts: netleap
+  become: true
+  user: ansible
+  tasks:
+         - name: install httpd
+           yum:
+                 pkg: httpd
+                 state: present
+         - name: start httpd
+           service:
+                 name: httpd
+                 enabled: yes
+

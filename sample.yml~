@@ -1,0 +1,20 @@
+---
+- hosts: netleap
+  become: true
+  user: ansible
+  tasks:
+          - name: install cronie
+            yum:
+                    name: cronie
+                    state: installed
+          - name: start cronie
+            service:
+                    name: crond
+                    enabled: yes
+          - name: scheduling task
+            cron:
+                    name: "job for reboot"
+                    special_time: reboot
+                    minute: "*/5"
+                    job: "reboot"
+

@@ -1,0 +1,14 @@
+---
+- hosts: netleap
+  become: true
+  user: ansible
+  tasks:
+          - name: create file
+            file:
+                    path: /home/ansible/shri
+                    state: touch
+
+          - name: remove file
+            file:
+                    path: /home/ansible/shri
+                    state: absent

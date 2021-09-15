@@ -1,0 +1,13 @@
+---
+- hosts: netleap
+  become: yes
+  user: ansible
+  tasks:
+          - name: print value of variable
+            debug:
+                    msg: >
+                            ipv4 is {{ansible_all_ipv4_addresses}}
+                            size of sda1 is {{ansible_devices.sda.partitions.sda1.size}}
+                            
+
+

@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: yes
+  user: ansible
+  tasks:
+          - name: create file
+            file:
+                    path: /home/ansible/auto
+                    state: touch
+                    owner: root
+                    group: root
+                    mode: 0644
+          - name: edit file
+            lineinfile:
+                    dest: /home/ansible/auto
+                    line: this is automation
+                    
+          - name: enter multiple lines
+            blockinfile:
+                    dest: /home/ansible/auto
+                    block: |
+                            this is ansible
+                            for automation
+          - name: synchronize file
+            synchronize:
+                    src: file
+                    dest: /home/ansible/auto
+          - name: create directory
+            file:
+                    path: /usr/html
+                    state: directory
+                    mode: 777
+          - name: set context
+            sefcontext:
+                    target: /usr/html
+                    setype: samba_share_t
+                    state: present
+                    
+
+
+
+                    

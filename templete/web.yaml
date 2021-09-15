@@ -1,0 +1,36 @@
+---
+- hosts: all
+  user: ansible
+  become: yes
+  tasks:
+          - name: install apache server
+            yum:
+                    name: httpd
+                    state: latest
+          - name: start and enable apache
+            service:
+                    name: httpd
+                    state: started
+                    enabled: yes
+          - name: web page
+            template:
+                    src: /home/ansible/templete/webpage.j2
+                    dest: /var/www/html/index.html
+          - name: configure your web
+            template:
+                    src: /home/ansible/templete/web.j2 
+                    dest: /etc/httpd/conf.d/simple.conf
+          - name: restart apache
+            service:
+                    name: httpd
+                    state: restarted
+          - name: add httpd in firewall
+            firewalld:
+                    service: http
+                    permanent: yes
+                    immediate: yes
+                    state: enabled
+          - name: display website
+            uri:
+                    url: http://localhost
+

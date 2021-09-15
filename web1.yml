@@ -1,0 +1,13 @@
+---
+- hosts: netleap
+  become: true
+  user: ansible
+  vars:
+          web_pkg: httpd
+          web_srv: httpd
+          rule: http
+  tasks:
+          - name: install
+            yum:
+
+

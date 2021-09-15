@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: yes
+  user: ansible
+  tasks:
+          - name: create extended partition
+            parted:
+                    device: /dev/sdb

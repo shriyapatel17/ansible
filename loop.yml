@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: yes
+  user: ansible
+  force_handlers: yes
+  tasks:
+          - name: install services
+            yum:
+                    name: "{{item}}"
+                    state: present
+            loop:
+                    - mariadb
+                    - nfs-utils
+                    - httpd
+                    - python2
+                    - php
+            notify: restart httpd
+  force_handlers: yes  
+  handlers: 
+          - name: restart httpd
+            service:
+                    name: httpd
+                    state: restarted
+          - name: display
+            debug:
+                    msg: >
+                            restart service by handler
+

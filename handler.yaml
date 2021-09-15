@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  user: ansible
+  tasks:
+          - name: set permissive mode
+            selinux:
+                    state: permissive
+                    policy: targeted
+            notify: reboot your system
+  handlers:
+        - name: reboot your system
+          reboot:
+

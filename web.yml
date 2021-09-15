@@ -1,0 +1,18 @@
+---
+- hosts: netleap
+  become: true
+  user: ansible
+  tasks:
+          - name: install httpd
+            yum:
+                    pkg: httpd
+                    state: present
+          - name: copy file
+            copy:
+                    src: /home/ansible/web/index.html
+                    dest: /var/www/html
+          - name: start and enable httpd
+            service:
+                    name: httpd
+                    state: started
+                    enabled: yes
